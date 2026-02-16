@@ -1,7 +1,3 @@
-// --- Activity signals (GitHub commits) ---
-// “Currently coding” if you’ve pushed within the last X hours.
-// This is privacy-respecting: it only uses your public GitHub activity.
-
 const statusText = document.getElementById('statusText');
 const statusDot = document.getElementById('statusDot');
 const lastShipText = document.getElementById('lastShipText');
@@ -48,7 +44,7 @@ async function loadActivitySignals() {
   }
 
   try {
-    // public events gives a good “recent push” signal.
+    // public events gives a good “recent push” signal
     const url = `https://api.github.com/users/${encodeURIComponent(GITHUB_USER)}/events/public?per_page=30`;
     const res = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
     if (!res.ok) throw new Error(`GitHub API error (${res.status})`);
@@ -83,7 +79,7 @@ function applyActivitySignals(data) {
   const pushAt = data?.pushCreatedAt ? new Date(data.pushCreatedAt) : null;
 
   if (pushAt && Date.now() - pushAt.getTime() <= msHours(CODING_WINDOW_HOURS)) {
-    statusText.textContent = `Currently coding (pushed ${fmtAgo(pushAt)})`;
+    statusText.textContent = `Last pushed: ${fmtAgo(pushAt)}`;
     statusDot.classList.add('good');
   } else if (pushAt) {
     statusText.textContent = `Not coding right now (last push ${fmtAgo(pushAt)})`;
