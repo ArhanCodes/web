@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio Generator • ArhanCodes</title>
+    <meta name="description" content="Generate a clean portfolio page (JSON config + downloadable HTML)." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="header">
+        <div class="title">
+          <h1>Portfolio Generator</h1>
+          <p class="subtitle">Build a clean portfolio page from a tiny config.</p>
+        </div>
+        <div class="links">
+          <a class="link" href="./index.html">Home</a>
+          <a class="link" href="https://github.com/ArhanCodes/web" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Config</h2>
+          <span class="muted">Edits update the output instantly</span>
+        </div>
+
+        <div class="form-grid" style="margin-top: 12px">
+          <div>
+            <label class="label" for="name">Name</label>
+            <input id="name" class="input" value="Arhan Harchandani" />
+          </div>
+
+          <div>
+            <label class="label" for="subtitle">Subtitle</label>
+            <input id="subtitle" class="input" value="Full-Stack Software Developer" />
+          </div>
+
+          <div>
+            <label class="label" for="accent">Accent</label>
+            <select id="accent" class="input">
+              <option value="#7c5cff" selected>Purple (#7c5cff)</option>
+              <option value="#2dd4bf">Teal (#2dd4bf)</option>
+              <option value="#f97316">Orange (#f97316)</option>
+              <option value="#22c55e">Green (#22c55e)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="label" for="description">Intro</label>
+            <textarea id="description" class="input" rows="4">I build scalable real-time systems and web apps.</textarea>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px">
+          <div class="section-head" style="margin-bottom: 8px">
+            <h2 style="margin:0; font-size:14px">Sections</h2>
+            <span class="muted">Toggle what’s included</span>
+          </div>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="sec_projects" checked /> Projects</label>
+            <label class="check"><input type="checkbox" id="sec_github" checked /> GitHub preview</label>
+            <label class="check"><input type="checkbox" id="sec_contact" checked /> Contact</label>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px">
+          <button class="btn" id="copyJson">Copy JSON</button>
+          <button class="btn btnPrimary" id="downloadHtml">Download index.html</button>
+          <a class="link" id="previewLink" href="#" style="text-decoration:none">Open preview</a>
+        </div>
+
+        <p class="muted" style="margin-top: 12px">Note: the generated HTML is standalone (no build tools). It uses a simplified version of this site’s styling.</p>
+      </section>
+
+      <section class="card" aria-label="Output">
+        <div class="section-head">
+          <h2>Output</h2>
+          <span class="muted">JSON + HTML</span>
+        </div>
+
+        <div style="margin-top: 12px">
+          <div class="label">portfolio.json</div>
+          <pre class="code" id="jsonOut"></pre>
+        </div>
+
+        <div style="margin-top: 12px">
+          <div class="label">index.html</div>
+          <pre class="code" id="htmlOut"></pre>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span class="muted">Tip: host the generated file anywhere (GitHub Pages / Netlify / Vercel).</span>
+      </footer>
+    </main>
+
+    <script src="./generator.js"></script>
+  </body>
+</html>
