@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accent Lab • ArhanCodes</title>
+    <meta name="description" content="Tune your theme and copy CSS variables." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="header">
+        <div class="title">
+          <h1>Accent Lab</h1>
+          <p class="subtitle">Tweak theme variables, preview instantly, copy the snippet.</p>
+        </div>
+        <div class="links">
+          <a class="link" href="./index.html">Home</a>
+          <a class="link" href="./generator.html">Generator</a>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Controls</h2>
+          <span class="muted">CSS variables</span>
+        </div>
+
+        <div class="form-grid" style="margin-top: 12px">
+          <div>
+            <label class="label" for="accent">Accent</label>
+            <input id="accent" class="input" type="color" value="#7c5cff" />
+          </div>
+
+          <div>
+            <label class="label" for="accentHex">Accent hex</label>
+            <input id="accentHex" class="input" value="#7c5cff" spellcheck="false" />
+          </div>
+
+          <div>
+            <label class="label" for="card">Card alpha</label>
+            <input id="card" class="input" type="range" min="0" max="0.18" step="0.01" value="0.06" />
+          </div>
+
+          <div>
+            <label class="label" for="border">Border alpha</label>
+            <input id="border" class="input" type="range" min="0" max="0.28" step="0.01" value="0.14" />
+          </div>
+
+          <div>
+            <label class="label" for="bg">Background</label>
+            <input id="bg" class="input" type="color" value="#0b0f1a" />
+          </div>
+
+          <div>
+            <label class="label" for="bgHex">Background hex</label>
+            <input id="bgHex" class="input" value="#0b0f1a" spellcheck="false" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px">
+          <button class="btn btnPrimary" id="copyCss">Copy :root CSS</button>
+          <button class="btn" id="reset">Reset</button>
+        </div>
+
+        <div style="margin-top: 12px">
+          <div class="label">:root snippet</div>
+          <pre class="code" id="cssOut"></pre>
+        </div>
+      </section>
+
+      <section class="card" aria-label="Preview">
+        <div class="section-head">
+          <h2>Preview</h2>
+          <span class="muted">This updates live</span>
+        </div>
+
+        <div class="repo-grid" style="margin-top: 10px">
+          <a class="repo" href="#" onclick="return false;">
+            <div class="repo-top">
+              <span class="repo-name">Example card</span>
+              <span class="badge">Accent</span>
+            </div>
+            <div class="repo-desc">Hover states + borders + background should feel consistent.</div>
+            <div class="repo-meta">
+              <span class="badge">★ 42</span>
+              <span class="badge">Updated Feb</span>
+            </div>
+          </a>
+
+          <div class="repo">
+            <div class="repo-top">
+              <span class="repo-name">Buttons</span>
+              <span class="badge">UI</span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px">
+              <button class="btn btnPrimary" type="button">Primary</button>
+              <button class="btn" type="button">Neutral</button>
+              <a class="link" href="#" onclick="return false;" style="text-decoration:none">Pill link</a>
+            </div>
+            <p class="muted" style="margin:10px 0 0">Tip: don’t crank alphas too high or it stops looking “glass”.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span class="muted">Use the copied snippet in your main <code>:root</code> in styles.css.</span>
+      </footer>
+    </main>
+
+    <script src="./accent-lab.js"></script>
+  </body>
+</html>
