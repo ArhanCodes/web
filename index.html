@@ -3,8 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Arhan Harchandani • Full-Stack Developer</title>
+    <title>Arhan Harchandani &bull; Full-Stack Developer</title>
     <meta name="description" content="Arhan Harchandani — full-stack software engineer and student." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Arhan Harchandani &bull; Full-Stack Developer" />
+    <meta property="og:description" content="Full-stack software engineer and Y12 Dubai College student specializing in scalable real-time systems." />
+    <meta property="og:url" content="https://arhan.dev" />
+    <meta property="og:site_name" content="Arhan Harchandani" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Arhan Harchandani &bull; Full-Stack Developer" />
+    <meta name="twitter:description" content="Full-stack software engineer and Y12 Dubai College student specializing in scalable real-time systems." />
+
+    <meta name="theme-color" content="#0b0f1a" />
+
+    <!-- Inline SVG favicon (no extra file needed) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Arhan Harchandani",
+      "url": "https://arhan.dev",
+      "jobTitle": "Full-Stack Developer",
+      "sameAs": [
+        "https://github.com/ArhanCodes",
+        "https://www.linkedin.com/in/arhan-harchandani-a99570367/"
+      ]
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,42 +48,36 @@
       <header class="header">
         <div class="title">
           <h1>Arhan Harchandani</h1>
-          <p class="subtitle">Full-Stack Developer • Student</p>
+          <p class="subtitle">Full-Stack Developer &bull; Student</p>
         </div>
 
         <div class="links">
           <a class="link" href="https://github.com/ArhanCodes" target="_blank" rel="noreferrer">GitHub</a>
           <a class="link" href="https://www.linkedin.com/in/arhan-harchandani-a99570367/" target="_blank" rel="noreferrer">LinkedIn</a>
-                <a class="link link-primary" href="https://docs.google.com/document/d/1isdzNJJXSav4ZyDTrayMCtXgV-bzIEtMPkEUKWY27OY/export?format=pdf" target="_blank" rel="noreferrer"><b>Download CV</b></a>
+          <a class="link link-primary" href="https://docs.google.com/document/d/1isdzNJJXSav4ZyDTrayMCtXgV-bzIEtMPkEUKWY27OY/export?format=pdf" target="_blank" rel="noreferrer"><b>Download CV</b></a>
         </div>
       </header>
 
       <section class="status" aria-label="Status">
-        <span class="dot" id="statusDot" aria-hidden="true"></span>
+        <span class="dot" id="statusDot" role="img" aria-label="Activity indicator"></span>
         <div class="statusTextBlock">
-          <span id="statusText">Checking activity…</span>
-          <span id="lastShipText" class="muted" style="font-weight: 700"></span>
+          <span id="statusText">Checking activity&hellip;</span>
+          <span id="lastShipText" class="muted last-ship-text"></span>
         </div>
       </section>
 
       <section class="card">
         <p>
-          I’m a full-stack software developer and Y12 Dubai College student specializing in building scalable real-time systems and web applications. Proficient with TS & JS.
+          I'm a full-stack software developer and Y12 Dubai College student specializing in building scalable real-time systems and web applications. Proficient with TS &amp; JS.
         </p>
-        <p>
-
-        </p>
-      
       </section>
-
-  
 
       <section class="card" aria-label="Playground">
         <div class="section-head">
           <h2>Playground</h2>
           <span class="muted">Little tools</span>
         </div>
-        <div class="repo-grid" style="margin-top: 10px">
+        <div class="repo-grid mt-sm">
           <a class="repo" href="./generator.html" aria-label="Portfolio generator">
             <div class="repo-top">
               <span class="repo-name">Portfolio generator</span>
@@ -77,15 +103,18 @@
           <h2>GitHub</h2>
           <a class="muted" href="https://github.com/ArhanCodes" target="_blank" rel="noreferrer">@ArhanCodes</a>
         </div>
-        <p class="muted" style="margin-top: 8px; margin-bottom: 12px">A preview of what I'm working on:</p>
+        <p class="muted mt-xs mb-sm">A preview of what I'm working on:</p>
 
         <div id="repoGrid" class="repo-grid" role="list" aria-live="polite">
           <div class="repo-skeleton" role="listitem"></div>
           <div class="repo-skeleton" role="listitem"></div>
           <div class="repo-skeleton" role="listitem"></div>
+          <div class="repo-skeleton" role="listitem"></div>
+          <div class="repo-skeleton" role="listitem"></div>
+          <div class="repo-skeleton" role="listitem"></div>
         </div>
 
-        <p id="repoHint" class="muted" style="margin-top: 12px; display:none"></p>
+        <p id="repoHint" class="muted mt-sm" style="display:none"></p>
       </section>
     </main>
 

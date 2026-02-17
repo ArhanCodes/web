@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Portfolio Generator • ArhanCodes</title>
+    <title>Portfolio Generator &bull; ArhanCodes</title>
     <meta name="description" content="Generate a clean portfolio page (JSON config + downloadable HTML)." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Portfolio Generator &bull; ArhanCodes" />
+    <meta property="og:description" content="Generate a clean portfolio page from a tiny config. JSON + downloadable HTML." />
+
+    <meta name="theme-color" content="#0b0f1a" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,6 +28,7 @@
         </div>
         <div class="links">
           <a class="link" href="./index.html">Home</a>
+          <a class="link" href="./accent-lab.html">Accent Lab</a>
           <a class="link" href="https://github.com/ArhanCodes/web" target="_blank" rel="noreferrer">Source</a>
         </div>
       </header>
@@ -30,7 +39,7 @@
           <span class="muted">Edits update the output instantly</span>
         </div>
 
-        <div class="form-grid" style="margin-top: 12px">
+        <div class="form-grid mt-md">
           <div>
             <label class="label" for="name">Name</label>
             <input id="name" class="input" value="Arhan Harchandani" />
@@ -57,10 +66,10 @@
           </div>
         </div>
 
-        <div style="margin-top: 12px">
-          <div class="section-head" style="margin-bottom: 8px">
-            <h2 style="margin:0; font-size:14px">Sections</h2>
-            <span class="muted">Toggle what’s included</span>
+        <div class="mt-md">
+          <div class="section-head mb-sm">
+            <h2 class="section-head-sm">Sections</h2>
+            <span class="muted">Toggle what's included</span>
           </div>
           <div class="checks">
             <label class="check"><input type="checkbox" id="sec_projects" checked /> Projects</label>
@@ -69,13 +78,13 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px">
+        <div class="flex-wrap-row mt-lg">
           <button class="btn" id="copyJson">Copy JSON</button>
           <button class="btn btnPrimary" id="downloadHtml">Download index.html</button>
           <a class="link" id="previewLink" href="#" style="text-decoration:none">Open preview</a>
         </div>
 
-        <p class="muted" style="margin-top: 12px">Note: the generated HTML is standalone (no build tools). It uses a simplified version of this site’s styling.</p>
+        <p class="muted mt-md">Note: the generated HTML is standalone (no build tools). It uses a simplified version of this site's styling.</p>
       </section>
 
       <section class="card" aria-label="Output">
@@ -84,12 +93,12 @@
           <span class="muted">JSON + HTML</span>
         </div>
 
-        <div style="margin-top: 12px">
+        <div class="mt-md">
           <div class="label">portfolio.json</div>
           <pre class="code" id="jsonOut"></pre>
         </div>
 
-        <div style="margin-top: 12px">
+        <div class="mt-md">
           <div class="label">index.html</div>
           <pre class="code" id="htmlOut"></pre>
         </div>

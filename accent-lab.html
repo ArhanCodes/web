@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Accent Lab • ArhanCodes</title>
+    <title>Accent Lab &bull; ArhanCodes</title>
     <meta name="description" content="Tune your theme and copy CSS variables." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Accent Lab &bull; ArhanCodes" />
+    <meta property="og:description" content="Tweak theme variables, preview instantly, and copy the CSS snippet." />
+
+    <meta name="theme-color" content="#0b0f1a" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,7 +38,7 @@
           <span class="muted">CSS variables</span>
         </div>
 
-        <div class="form-grid" style="margin-top: 12px">
+        <div class="form-grid mt-md">
           <div>
             <label class="label" for="accent">Accent</label>
             <input id="accent" class="input" type="color" value="#7c5cff" />
@@ -62,12 +70,12 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px">
+        <div class="flex-wrap-row mt-lg">
           <button class="btn btnPrimary" id="copyCss">Copy :root CSS</button>
           <button class="btn" id="reset">Reset</button>
         </div>
 
-        <div style="margin-top: 12px">
+        <div class="mt-md">
           <div class="label">:root snippet</div>
           <pre class="code" id="cssOut"></pre>
         </div>
@@ -79,7 +87,7 @@
           <span class="muted">This updates live</span>
         </div>
 
-        <div class="repo-grid" style="margin-top: 10px">
+        <div class="repo-grid mt-sm">
           <a class="repo" href="#" onclick="return false;">
             <div class="repo-top">
               <span class="repo-name">Example card</span>
@@ -87,7 +95,7 @@
             </div>
             <div class="repo-desc">Hover states + borders + background should feel consistent.</div>
             <div class="repo-meta">
-              <span class="badge">★ 42</span>
+              <span class="badge">&#9733; 42</span>
               <span class="badge">Updated Feb</span>
             </div>
           </a>
@@ -97,12 +105,12 @@
               <span class="repo-name">Buttons</span>
               <span class="badge">UI</span>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px">
+            <div class="flex-wrap-row mt-sm">
               <button class="btn btnPrimary" type="button">Primary</button>
               <button class="btn" type="button">Neutral</button>
               <a class="link" href="#" onclick="return false;" style="text-decoration:none">Pill link</a>
             </div>
-            <p class="muted" style="margin:10px 0 0">Tip: don’t crank alphas too high or it stops looking “glass”.</p>
+            <p class="muted mt-sm">Tip: don't crank alphas too high or it stops looking "glass".</p>
           </div>
         </div>
       </section>

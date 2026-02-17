@@ -18,16 +18,16 @@ const $copyJson = el('copyJson');
 const $downloadHtml = el('downloadHtml');
 const $previewLink = el('previewLink');
 
-function safeText(x) {
+function normalizeNewlines(x) {
   return String(x || '').replace(/\r\n/g, '\n');
 }
 
 function buildConfig() {
   return {
-    name: safeText($name.value).trim(),
-    subtitle: safeText($subtitle.value).trim(),
-    accent: safeText($accent.value).trim(),
-    intro: safeText($description.value).trim(),
+    name: normalizeNewlines($name.value).trim(),
+    subtitle: normalizeNewlines($subtitle.value).trim(),
+    accent: normalizeNewlines($accent.value).trim(),
+    intro: normalizeNewlines($description.value).trim(),
     sections: {
       projects: !!$secProjects.checked,
       github: !!$secGithub.checked,
@@ -119,6 +119,9 @@ function prettyJson(obj) {
   return JSON.stringify(obj, null, 2);
 }
 
+/** Track the previous blob URL so we can revoke it and avoid memory leaks */
+let _prevBlobUrl = null;
+
 function refresh() {
   const cfg = buildConfig();
   const html = buildHtml(cfg);
@@ -126,9 +129,15 @@ function refresh() {
   $jsonOut.textContent = prettyJson(cfg);
   $htmlOut.textContent = html;
 
-  // preview using a blob URL
+  // Revoke previous blob URL to prevent memory leak
+  if (_prevBlobUrl) {
+    URL.revokeObjectURL(_prevBlobUrl);
+  }
+
   const blob = new Blob([html], { type: 'text/html' });
   const url = URL.createObjectURL(blob);
+  _prevBlobUrl = url;
+
   $previewLink.href = url;
   $previewLink.target = '_blank';
   $previewLink.rel = 'noreferrer';
@@ -153,11 +162,14 @@ function downloadHtml() {
   const html = window.__generated?.html || buildHtml(buildConfig());
   const blob = new Blob([html], { type: 'text/html' });
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  const dlUrl = URL.createObjectURL(blob);
+  a.href = dlUrl;
   a.download = 'index.html';
   document.body.appendChild(a);
   a.click();
   a.remove();
+  // Clean up download blob URL after a short delay
+  setTimeout(() => URL.revokeObjectURL(dlUrl), 1000);
 }
 
 [$name, $subtitle, $accent, $description, $secProjects, $secGithub, $secContact].forEach((x) =>
