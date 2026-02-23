@@ -118,12 +118,12 @@ const repoHint = document.getElementById('repoHint');
 
 
 const PINNED_REPOS = [
+  { owner: 'ArhanCodes',   name: 'jarvis',          description: 'Just A Very Intelligent System',      language: 'TypeScript' },
   { owner: 'tradebuddyhq', name: 'app',          description: 'React native app for mytradebuddy.com',  language: 'JavaScript' },
-  { owner: 'tradebuddyhq', name: 'ebay-wrapper',  description: 'Updated eBay API Wrapper',               language: 'TypeScript' },
   { owner: 'ArhanCodes',   name: 'nudge',    description: 'Personalised sustainability tracker', language: 'JavaScript' },
-  { owner: 'ArhanCodes',   name: 'Otter',          description: 'A powerful discord moderation bot',      language: 'TypeScript' },
-  { owner: 'IKEAStock',    name: 'api',            description: 'api.ikeastock.app',                      language: 'TypeScript' },
   { owner: 'ArhanCodes',   name: 'web',            description: 'arhan.dev',                              language: 'JavaScript' },
+  { owner: 'tradebuddyhq', name: 'ebay-wrapper',  description: 'Updated eBay API Wrapper',               language: 'TypeScript' },
+  { owner: 'IKEAStock',    name: 'api',            description: 'api.ikeastock.app',                      language: 'TypeScript' },
 ];
 
 function el(tag, attrs = {}, children = []) {
