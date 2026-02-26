@@ -1,0 +1,106 @@
+<p>if you've been writing in typescript for a while, you've probably run into generics and wondered what's going on with the angle brackets. generics are consistently one of the most confusing parts of typescript for newcomers. let's break it down</p>
+
+<h2>the problem generics solve</h2>
+
+<p>imagine you write a function that wraps a value in an array:</p>
+
+<pre><code>function wrapInArray(value: string): string[] {
+  return [value];
+}</code></pre>
+
+<p>this works great for strings. not so great for numbers or objects though. you'd have to write a separate function for each type, or give up and use <code>any</code>. both options are terrible.</p>
+
+<p>generics let you write one function that works with any type while still keeping full type safety:</p>
+
+<pre><code>function wrapInArray&lt;T&gt;(value: T): T[] {
+  return [value];
+}
+
+const strings = wrapInArray("hello");  // string[]
+const numbers = wrapInArray(42);       // number[]</code></pre>
+
+<p>the <code>T</code> is a type variable. just think of it like a function parameter, but for types. when you call <code>wrapInArray("hello")</code>, typescript infers that <code>T = string</code> and flows that through the return type</p>
+
+<h2>example</h2>
+
+<p>say you're fetching data from an API:</p>
+
+<pre><code>async function fetchData&lt;T&gt;(url: string): Promise&lt;T&gt; {
+  const res = await fetch(url);
+  return res.json() as T;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// now typescript knows exactly what shape 'user' has
+const user = await fetchData&lt;User&gt;("/api/user/1");
+console.log(user.name);  // fully typed, autocomplete works</code></pre>
+
+<p>without generics, you'd be casting <code>any</code> all over the place or writing a separate fetch wrapper for every endpoint</p>
+
+<h2>constraining generics</h2>
+
+<p>sometimes you need a generic that isn't completely open. you want to accept any type, but only if it has certain properties. that's where <code>extends</code> comes in:</p>
+
+<pre><code>function getLength&lt;T extends { length: number }&gt;(item: T): number {
+  return item.length;
+}
+
+getLength("hello");     // works - strings have .length
+getLength([1, 2, 3]);   // works - arrays have .length
+getLength(42);           // error - numbers don't have .length</code></pre>
+
+<p>the constraint <code>T extends { length: number }</code> means: "T can be anything, as long as it has a <code>length</code> property that's a number." this is incredibly powerful for writing utility functions</p>
+
+<h2>the keyof pattern</h2>
+
+<p>this is prolly the most useful generic pattern you'll use daily. it lets you write type-safe property access:</p>
+
+<pre><code>function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const user = { name: "Arhan", age: 16, email: "a@b.com" };
+
+getProperty(user, "name");    // return type is string
+getProperty(user, "age");     // return type is number
+getProperty(user, "address"); // error - "address" doesn't exist</code></pre>
+
+<p>typescript catches the invalid key at compile time and correctly narrows the return type based on which key you pass. this is the kind of thing that's impossible without generics</p>
+
+<h2>generic interfaces and types</h2>
+
+<p>generics aren't just for functions. you'll see them everywhere in real codebases:</p>
+
+<pre><code>// generic interface for any API response
+interface ApiResponse&lt;T&gt; {
+  data: T;
+  status: number;
+  error?: string;
+}
+
+// now reuse it for different endpoints
+type UserResponse = ApiResponse&lt;User&gt;;
+type PostResponse = ApiResponse&lt;Post[]&gt;;
+
+// generic type for making all properties optional
+type Updatable&lt;T&gt; = {
+  [K in keyof T]?: T[K];
+};</code></pre>
+
+<h2>the mental model</h2>
+
+<p>if generics still feel confusing, here's the simplest way to think about them:</p>
+
+<ul>
+<li>regular parameters let you pass values you don't know ahead of time</li>
+<li>generics let you pass types you don't know ahead of time</li>
+</ul>
+
+<p>every time you see <code>&lt;T&gt;</code>, just read it as "some type T that we'll figure out when this gets used"</p>
+
+<p>start with the simple patterns above and you'll find generics showing up naturally in your code.</p>

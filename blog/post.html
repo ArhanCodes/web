@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Post &mdash; Arhan Harchandani</title>
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="post-page">
+      <a href="../blog.html" class="back-link">&larr; blog</a>
+      <div class="post-header" id="postHeader">
+        <h1 id="postTitle">Loading...</h1>
+        <time id="postDate"></time>
+      </div>
+      <article class="post-content" id="postContent"></article>
+    </main>
+
+    <script>
+      (async function () {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+
+        if (!slug) {
+          document.getElementById('postTitle').textContent = 'Post not found';
+          return;
+        }
+
+        try {
+          const manifestRes = await fetch('./posts.json');
+          const posts = await manifestRes.json();
+          const meta = posts.find(p => p.slug === slug);
+
+          if (!meta) {
+            document.getElementById('postTitle').textContent = 'Post not found';
+            return;
+          }
+
+          document.getElementById('postTitle').textContent = meta.title;
+          document.getElementById('postDate').textContent = meta.date;
+          document.title = `${meta.title} \u2014 Arhan Harchandani`;
+
+          const postRes = await fetch(`./posts/${encodeURIComponent(slug)}.html`);
+          if (!postRes.ok) throw new Error('Post file not found');
+          const html = await postRes.text();
+          document.getElementById('postContent').innerHTML = html;
+        } catch {
+          document.getElementById('postTitle').textContent = 'Error loading post';
+          document.getElementById('postContent').textContent = 'Could not load this post.';
+        }
+      })();
+    </script>
+  </body>
+</html>

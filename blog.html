@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog &mdash; Arhan Harchandani</title>
+    <meta name="description" content="Programming blog by Arhan Harchandani." />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="blog-container">
+      <nav class="breadcrumb">
+        <a href="./index.html" class="breadcrumb-home" aria-label="Home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M9.828 3h3.982a.19.19 0 0 1 .169.276L13.092 5H14.5a.5.5 0 0 1 .5.5v.5h-15v-.5a.5.5 0 0 1 .5-.5h1.408l-.887-1.724A.19.19 0 0 1 1.19 3h3.982c.18 0 .345.098.43.253L6.82 5h2.36l1.218-1.747A.49.49 0 0 1 9.828 3M13.5 6.5H.5v6a1.5 1.5 0 0 0 1.5 1.5h10a1.5 1.5 0 0 0 1.5-1.5z"/></svg>
+        </a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="./blog.html" class="breadcrumb-link">blog</a>
+      </nav>
+
+      <div class="post-cards" id="postCards">
+        <div class="post-card-loading">Loading posts...</div>
+      </div>
+    </div>
+
+    <script>
+      (async function () {
+        const container = document.getElementById('postCards');
+        try {
+          const res = await fetch('./blog/posts.json');
+          if (!res.ok) throw new Error('Failed to load posts');
+          const posts = await res.json();
+          posts.sort((a, b) => b.date.localeCompare(a.date));
+          container.innerHTML = '';
+
+          if (posts.length === 0) {
+            container.innerHTML = '<div class="post-card-empty">No posts yet.</div>';
+            return;
+          }
+
+          for (const post of posts) {
+            const a = document.createElement('a');
+            a.className = 'post-card';
+            a.href = `./blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+
+            const title = document.createElement('h2');
+            title.className = 'post-card-title';
+            title.textContent = post.title;
+
+            const parts = post.date.split('-');
+            const path = `/blog/${parts[0]}/${parts[1]}/${post.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '')}`;
+            const pathEl = document.createElement('h3');
+            pathEl.className = 'post-card-path';
+            pathEl.textContent = path;
+
+            a.appendChild(title);
+            a.appendChild(pathEl);
+            container.appendChild(a);
+          }
+        } catch {
+          container.innerHTML = '<div class="post-card-empty">Could not load posts.</div>';
+        }
+      })();
+    </script>
+  </body>
+</html>

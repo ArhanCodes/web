@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Post &mdash; Arhan Harchandani</title>
+    <meta name="theme-color" content="#1c1917" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .editor-page {
+        max-width: 720px;
+        padding: 48px 24px;
+      }
+      .editor-page h1 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 24px;
+      }
+      .field { margin-bottom: 16px; }
+      .field label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+      }
+      .field input, .field textarea {
+        width: 100%;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.9375rem;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+      .field input:focus, .field textarea:focus {
+        border-color: rgba(255,255,255,0.3);
+      }
+      .field textarea {
+        min-height: 320px;
+        resize: vertical;
+        font-family: 'SF Mono', 'Fira Code', Menlo, Consolas, monospace;
+        font-size: 0.8125rem;
+        line-height: 1.6;
+        tab-size: 2;
+      }
+      .hint {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.05);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .btn:hover { background: rgba(255,255,255,0.1); }
+      .btn-primary {
+        background: rgba(34,197,94,0.15);
+        border-color: rgba(34,197,94,0.3);
+      }
+      .btn-primary:hover { background: rgba(34,197,94,0.25); }
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #22c55e;
+        color: #000;
+        padding: 8px 20px;
+        border-radius: 999px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+      }
+      .toast.show { opacity: 1; }
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        margin: 32px 0;
+      }
+      .preview-area {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 8px;
+        padding: 24px;
+        margin-top: 16px;
+      }
+      .slug-display {
+        font-family: 'SF Mono', Menlo, Consolas, monospace;
+        font-size: 0.8125rem;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .json-block {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-family: 'SF Mono', Menlo, Consolas, monospace;
+        font-size: 0.8125rem;
+        color: #a8a29e;
+        margin-top: 8px;
+        white-space: pre;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="editor-page">
+      <a href="../blog.html" class="back-link">&larr; blog</a>
+      <h1>New Post</h1>
+
+      <div class="field">
+        <label for="postTitle">Title</label>
+        <input type="text" id="postTitle" placeholder="My First Post" />
+      </div>
+
+      <div class="field">
+        <label for="postDate">Date</label>
+        <input type="date" id="postDate" />
+      </div>
+
+      <div id="slugInfo" class="slug-display"></div>
+
+      <div class="field" style="margin-top: 16px;">
+        <label for="postBody">Content (Markdown)</label>
+        <textarea id="postBody" placeholder="Write your post here using Markdown...
+
+## Subheading
+
+Regular paragraph text. **Bold** and *italic* work.
+
+- List item one
+- List item two
+
+`inline code` or a code block:
+
+```
+const x = 42;
+```
+
+> A blockquote
+
+[Link text](https://example.com)"></textarea>
+        <div class="hint">
+          Supports: ## headings, **bold**, *italic*, `code`, ```code blocks```, - lists, > quotes, [links](url), ![images](url)
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="downloadBtn">Download post file</button>
+        <button class="btn" id="copyJsonBtn">Copy posts.json entry</button>
+        <button class="btn" id="previewBtn">Toggle preview</button>
+      </div>
+
+      <div id="jsonEntry" class="json-block" style="display:none;"></div>
+
+      <hr class="divider" id="previewDivider" style="display:none;" />
+      <div id="previewArea" class="preview-area post-content" style="display:none;"></div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const titleInput = document.getElementById('postTitle');
+      const dateInput = document.getElementById('postDate');
+      const bodyInput = document.getElementById('postBody');
+      const slugInfo = document.getElementById('slugInfo');
+      const previewArea = document.getElementById('previewArea');
+      const previewDivider = document.getElementById('previewDivider');
+      const jsonEntry = document.getElementById('jsonEntry');
+      const toast = document.getElementById('toast');
+
+      // Default date to today
+      dateInput.value = new Date().toISOString().split('T')[0];
+
+      function getSlug() {
+        const date = dateInput.value || new Date().toISOString().split('T')[0];
+        const title = titleInput.value.trim();
+        const titleSlug = title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '');
+        return `${date}-${titleSlug || 'untitled'}`;
+      }
+
+      function updateSlug() {
+        slugInfo.textContent = `posts/${getSlug()}.html`;
+      }
+
+      titleInput.addEventListener('input', updateSlug);
+      dateInput.addEventListener('input', updateSlug);
+      updateSlug();
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      }
+
+      // Simple Markdown to HTML converter
+      function md(text) {
+        let html = text;
+
+        // Code blocks (``` ... ```)
+        html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+          const escaped = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          return `<pre><code>${escaped.trimEnd()}</code></pre>`;
+        });
+
+        // Split into lines for block-level processing
+        const lines = html.split('\n');
+        let result = [];
+        let inList = false;
+        let inBlockquote = false;
+        let i = 0;
+
+        while (i < lines.length) {
+          let line = lines[i];
+
+          // Skip lines inside pre blocks (already handled)
+          if (line.includes('<pre><code>')) {
+            let preBlock = line;
+            while (!line.includes('</code></pre>') && i < lines.length - 1) {
+              i++;
+              line = lines[i];
+              preBlock += '\n' + line;
+            }
+            if (inList) { result.push('</ul>'); inList = false; }
+            if (inBlockquote) { result.push('</blockquote>'); inBlockquote = false; }
+            result.push(preBlock);
+            i++;
+            continue;
+          }
+
+          // Headings
+          if (/^### (.+)/.test(line)) {
+            if (inList) { result.push('</ul>'); inList = false; }
+            if (inBlockquote) { result.push('</blockquote>'); inBlockquote = false; }
+            result.push(`<h3>${inline(line.slice(4))}</h3>`);
+            i++; continue;
+          }
+          if (/^## (.+)/.test(line)) {
+            if (inList) { result.push('</ul>'); inList = false; }
+            if (inBlockquote) { result.push('</blockquote>'); inBlockquote = false; }
+            result.push(`<h2>${inline(line.slice(3))}</h2>`);
+            i++; continue;
+          }
+
+          // List items
+          if (/^[-*] (.+)/.test(line)) {
+            if (inBlockquote) { result.push('</blockquote>'); inBlockquote = false; }
+            if (!inList) { result.push('<ul>'); inList = true; }
+            result.push(`<li>${inline(line.replace(/^[-*] /, ''))}</li>`);
+            i++; continue;
+          } else if (inList) {
+            result.push('</ul>');
+            inList = false;
+          }
+
+          // Blockquote
+          if (/^> (.+)/.test(line)) {
+            if (inList) { result.push('</ul>'); inList = false; }
+            if (!inBlockquote) { result.push('<blockquote>'); inBlockquote = true; }
+            result.push(`<p>${inline(line.slice(2))}</p>`);
+            i++; continue;
+          } else if (inBlockquote) {
+            result.push('</blockquote>');
+            inBlockquote = false;
+          }
+
+          // Images (standalone line)
+          if (/^!\[([^\]]*)\]\(([^)]+)\)$/.test(line.trim())) {
+            const m = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+            result.push(`<img src="${m[2]}" alt="${m[1]}" />`);
+            i++; continue;
+          }
+
+          // Empty line
+          if (line.trim() === '') {
+            i++; continue;
+          }
+
+          // Paragraph
+          result.push(`<p>${inline(line)}</p>`);
+          i++;
+        }
+
+        if (inList) result.push('</ul>');
+        if (inBlockquote) result.push('</blockquote>');
+
+        return result.join('\n');
+      }
+
+      // Inline markdown
+      function inline(text) {
+        return text
+          .replace(/`([^`]+)`/g, '<code>$1</code>')
+          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+      }
+
+      // Download post HTML file
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        const body = bodyInput.value.trim();
+        if (!body) { showToast('Write some content first'); return; }
+        const html = md(body);
+        const slug = getSlug();
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${slug}.html`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast(`Downloaded ${slug}.html`);
+      });
+
+      // Copy JSON entry
+      document.getElementById('copyJsonBtn').addEventListener('click', () => {
+        const title = titleInput.value.trim() || 'Untitled';
+        const date = dateInput.value;
+        const slug = getSlug();
+        const entry = JSON.stringify({ slug, title, date }, null, 2);
+
+        jsonEntry.textContent = entry;
+        jsonEntry.style.display = 'block';
+
+        navigator.clipboard.writeText(entry).then(() => {
+          showToast('Copied to clipboard');
+        }).catch(() => {
+          showToast('Shown below — copy manually');
+        });
+      });
+
+      // Toggle preview
+      let previewVisible = false;
+      document.getElementById('previewBtn').addEventListener('click', () => {
+        previewVisible = !previewVisible;
+        previewArea.style.display = previewVisible ? 'block' : 'none';
+        previewDivider.style.display = previewVisible ? 'block' : 'none';
+        if (previewVisible) {
+          previewArea.innerHTML = md(bodyInput.value);
+        }
+      });
+
+      // Live preview update
+      bodyInput.addEventListener('input', () => {
+        if (previewVisible) {
+          previewArea.innerHTML = md(bodyInput.value);
+        }
+      });
+
+      // Tab key inserts spaces in textarea
+      bodyInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = bodyInput.selectionStart;
+          const end = bodyInput.selectionEnd;
+          bodyInput.value = bodyInput.value.substring(0, start) + '  ' + bodyInput.value.substring(end);
+          bodyInput.selectionStart = bodyInput.selectionEnd = start + 2;
+        }
+      });
+    </script>
+  </body>
+</html>
