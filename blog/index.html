@@ -51,14 +51,12 @@
             title.className = 'post-card-title';
             title.textContent = post.title;
 
-            const parts = post.date.split('-');
-            const path = `/blog/${parts[0]}/${parts[1]}/${post.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '')}`;
-            const pathEl = document.createElement('h3');
-            pathEl.className = 'post-card-path';
-            pathEl.textContent = path;
+            const dateEl = document.createElement('h3');
+            dateEl.className = 'post-card-path';
+            dateEl.textContent = post.date;
 
             a.appendChild(title);
-            a.appendChild(pathEl);
+            a.appendChild(dateEl);
             container.appendChild(a);
           }
         } catch {
